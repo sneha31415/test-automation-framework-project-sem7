@@ -1,0 +1,9 @@
+tc_id,fr_id,title,username,password,expected_error
+TC-LOGIN-02,FR-02,invalid_password,standard_user,wrong_password,do not match any user
+TC-LOGIN-03,FR-03,blank_username,,secret_sauce,Username is required
+TC-LOGIN-04,FR-04,blank_password,standard_user,,Password is required
+TC-LOGIN-05,FR-02,invalid_username,invalid_user,secret_sauce,do not match any user
+TC-LOGIN-06,FR-02,both_fields_blank,,,Username is required
+TC-LOGIN-07,FR-02,password_is_case_sensitive,standard_user,SECRET_SAUCE,do not match any user
+TC-LOGIN-08,FR-02,locked_out_user,locked_out_user,secret_sauce,locked out
+TC-LOGIN-09,FR-02,sql_injection_string,standard_user,' OR '1'='1,do not match any user

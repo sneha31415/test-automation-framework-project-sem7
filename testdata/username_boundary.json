@@ -1,0 +1,10 @@
+{
+  "description": "FR-05 boundary value analysis on username length. The requirement states a username longer than 30 characters must fail. Boundaries tested: 29 (below), 30 (on the boundary), 31 (first value above), 32 and 255 (well above). The username is built as 'a' * length, which is never a registered user, so every case is expected to show the error banner and stay on the login page. For lengths <= 30 the failure reason is 'unknown user', not 'too long' - see docs/Test_Design_and_Traceability.xlsx (OBS-01).",
+  "cases": [
+    {"tc_id": "TC-LOGIN-10", "length": 29,  "note": "just below the boundary (length valid, user unknown)"},
+    {"tc_id": "TC-LOGIN-11", "length": 30,  "note": "on the boundary (length valid, user unknown)"},
+    {"tc_id": "TC-LOGIN-12", "length": 31,  "note": "first value above the boundary - must fail per FR-05"},
+    {"tc_id": "TC-LOGIN-13", "length": 32,  "note": "above the boundary - must fail per FR-05"},
+    {"tc_id": "TC-LOGIN-14", "length": 255, "note": "far above the boundary - must fail per FR-05"}
+  ]
+}

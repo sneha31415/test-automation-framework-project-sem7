@@ -1,0 +1,13 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+.idea/
+
+# generated test artefacts (keep folders, ignore run output)
+reports/report.html
+reports/screenshots/*.png
+reports/logs/*.log
+assets/

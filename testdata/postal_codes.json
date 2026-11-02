@@ -1,0 +1,12 @@
+{
+  "description": "FR-14 postal code: must be numeric. 4 digits = invalid, 5 digits = valid, 6 digits = valid, non-numeric = invalid. Cases flagged known_defect are expected to be rejected by the requirement but (to the best of our knowledge) are accepted by the live SauceDemo site, so they are executed as xfail and reported as defect DEF-01. Run them once and update docs/Test_Design_and_Traceability.xlsx with what you actually observe.",
+  "cases": [
+    {"tc_id": "TC-CHK-05", "value": "1234",   "description": "4 digits",              "technique": "BVA", "expected": "invalid", "known_defect": true},
+    {"tc_id": "TC-CHK-06", "value": "12345",  "description": "5 digits",              "technique": "BVA", "expected": "valid",   "known_defect": false},
+    {"tc_id": "TC-CHK-07", "value": "123456", "description": "6 digits",              "technique": "BVA", "expected": "valid",   "known_defect": false},
+    {"tc_id": "TC-CHK-08", "value": "ABCDE",  "description": "letters only",          "technique": "EP",  "expected": "invalid", "known_defect": true},
+    {"tc_id": "TC-CHK-09", "value": "12A45",  "description": "alphanumeric mix",      "technique": "EP",  "expected": "invalid", "known_defect": true},
+    {"tc_id": "TC-CHK-10", "value": "",       "description": "blank",                 "technique": "EP",  "expected": "invalid", "known_defect": false},
+    {"tc_id": "TC-CHK-11", "value": "!@#$%",  "description": "special characters",    "technique": "EP",  "expected": "invalid", "known_defect": true}
+  ]
+}

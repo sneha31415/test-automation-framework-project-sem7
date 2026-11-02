@@ -1,0 +1,4 @@
+tc_id,fr_id,title,first_name,last_name,postal_code,expected_error
+TC-CHK-02,FR-12,blank_first_name,,Doe,12345,First Name is required
+TC-CHK-03,FR-13,blank_last_name,John,,12345,Last Name is required
+TC-CHK-04,FR-12,all_fields_blank,,,,First Name is required
