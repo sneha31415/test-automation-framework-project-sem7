@@ -45,7 +45,7 @@ def pytest_configure(config):
 
         config.stash[metadata_key]["Application URL"] = settings.BASE_URL
         config.stash[metadata_key]["Headless"] = str(settings.HEADLESS)
-    except Exception:  # noqa: BLE001 - metadata is cosmetic only
+    except Exception:  
         pass
 
 

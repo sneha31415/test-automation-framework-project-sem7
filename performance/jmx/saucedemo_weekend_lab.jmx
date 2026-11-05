@@ -2,7 +2,7 @@
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="SauceDemo Weekend Lab - Load Test" enabled="true">
-      <stringProp name="TestPlan.comments">Load profile: 20 concurrent users, 60 s ramp-up, 3 minute (180 s) duration, 0-500 ms random think time. Targets the Login page (GET /) and the Products page (GET /inventory.html). All values can be overridden on the command line, e.g. -Jthreads=2 -Jduration=20, but the defaults below are the lab's mandatory profile.</stringProp>
+      <stringProp name="TestPlan.comments">Load profile: 20 concurrent users, 60 s ramp-up, 3 minute (180 s) duration, 0-500 ms random think time. Targets the Login page (GET /) and the Products page. SauceDemo is a single-page app and the server returns 404 for /inventory.html, so the Products sampler requests the application's JavaScript bundle (the file that renders the product list), whose path is extracted from the login page response. All values can be overridden on the command line, e.g. -Jthreads=2 -Jduration=20, but the defaults below are the lab's mandatory profile.</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -82,6 +82,15 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract app JS bundle path" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">bundlePath</stringProp>
+            <stringProp name="RegexExtractor.regex">&lt;script[^&gt;]+src=&quot;([^&quot;]+\.js)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">/BUNDLE_NOT_FOUND</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -106,7 +115,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/inventory.html</stringProp>
+          <stringProp name="HTTPSampler.path">${bundlePath}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
